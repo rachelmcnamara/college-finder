@@ -925,6 +925,42 @@ const SCHOOLS = [
       "Best fit if San Diego's location and a more traditional, social college experience matter as much as the degree itself.",
     ],
   },
+  {
+    id: "uw",
+    name: "UW Seattle",
+    fullName: "University of Washington, Seattle",
+    type: "OOS",
+    city: "Seattle",
+    region: "Pacific Northwest",
+    costIn: 69600,
+    costOut: 69600,
+    acceptance: "~39%",
+    acceptanceNum: 39,
+    gpaFit: "competitive",
+    gpaNote:
+      "Middle 50% of autumn 2025 admits posted a 3.75–3.98 high-school GPA — a 3.67 UW sits below that band. Nonresident admit rate runs around 39% (a bit below the overall ~42%). Campus admission is a real target, not a lock. Foster Freshman Direct is a second, tighter filter on top of that — list Business Administration as the first-choice major, or plan on applying to Foster after freshman year.",
+    program: {
+      name: "Michael G. Foster School of Business",
+      blurb:
+        "AACSB-accredited and consistently ranked among the top public undergraduate business schools in the country, with concentrations in finance, marketing, accounting, information systems, and more — plus Seattle's Amazon / Microsoft / startup recruiting pipeline. Two paths: Freshman Direct (Foster picks from UW admits who listed Business Administration first) or standard admission after the first year, which is still capacity-constrained. Getting into UW is not the same as getting into Foster.",
+      ranking: "Top public undergrad business school; AACSB-accredited",
+    },
+    minors:
+      "Both History and Political Science are large, well-regarded majors and minors in the College of Arts & Sciences — among the stronger liberal-arts benches on this list, independent of Foster.",
+    housing: {
+      dial: 4,
+      note: "Most freshmen live on campus (~70%+), but housing is not guaranteed — apply as soon as the housing portal opens. After year one, many students move into the U-District apartment scene. Big-city campus, not a self-contained college town.",
+    },
+    goodFor: "Top public B-school + Seattle internships — out-of-state price",
+    careerSalary: "~$81k",
+    careerNote:
+      "Foster Class of 2025 reported an average starting salary around $81,000, with 92% employed or in planned next steps within 90 days — tech, finance, consulting, and accounting in Seattle and beyond.",
+    extras: [
+      "List Business Administration as first-choice major on the Common App for Foster Freshman Direct — a campus admit does not automatically mean Foster.",
+      "Application deadline: Nov 15 (Common App) — two weeks before UC/CSU. No Early Action or Early Decision.",
+      "From Danville this is typically a ~2-hour flight, not a weekend drive. Best fit if Seattle's job market and a flagship-public business brand are worth nonresident tuition.",
+    ],
+  },
 ];
 
 /* Approximate climate averages (typical July / January daytime highs)
@@ -1141,6 +1177,15 @@ const LOCATION_INFO = {
     },
     mapUrl: "https://www.google.com/maps/search/?api=1&query=San+Diego+State+University",
   },
+  uw: {
+    weather: {
+      summerHigh: 76,
+      winterHigh: 47,
+      rainNote: "Mild, dry-ish summers; gray and rainy Oct–May — bring a jacket.",
+    },
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=University+of+Washington+Seattle",
+  },
 };
 
 /* Main undergraduate application deadline for fall entry.
@@ -1195,6 +1240,11 @@ const APPLICATION_DEADLINES = {
   humboldt: { date: "Nov 30", system: "Cal State Apply" },
   calpoly: { date: "Nov 30", system: "Cal State Apply" },
   sdsu: { date: "Nov 30", system: "Cal State Apply" },
+  uw: {
+    date: "Nov 15",
+    system: "Common App",
+    note: "No Early Action / Early Decision — one deadline for autumn entry",
+  },
 };
 
 /* Approximate campus-wide average undergraduate class size.
@@ -1321,6 +1371,11 @@ const CLASS_SIZES = {
     averageNum: 36,
     note: "Large business college — first- and second-year lectures are often very big.",
   },
+  uw: {
+    typical: "~33",
+    averageNum: 33,
+    note: "Big research university — large lower-division lectures are common; Foster upper-division sections run smaller.",
+  },
 };
 
 /* Short financial-aid snapshots for cards/detail.
@@ -1446,6 +1501,11 @@ const FINANCIAL_AID = {
     summary: "CSU grants; invite-only merit scholars",
     note: "Baseline = SUG / Cal Grant / MCS. Selective add-ons: SDSU Merit Scholars (~$7.5k–$10k/yr, local invite) and Presidential Scholars (up to ~$30k over 4 years, invite-only). Watch email after applying.",
   },
+  uw: {
+    lean: "mixed",
+    summary: "OOS sticker ~$70k; Purple & Gold merit auto",
+    note: "California residents pay nonresident tuition — no Cal Grant / Blue & Gold. U.S. nonresidents are automatically considered for the Purple & Gold Scholarship from the Nov 15 application (amounts unpublished; typically modest vs private merit, renewable 4 years). File FAFSA for federal aid. Run UW's net price calculator.",
+  },
 };
 
 /* How much extracurriculars tend to matter in admission review.
@@ -1570,6 +1630,11 @@ const EC_WEIGHT = {
     weight: "medium",
     summary: "Selective CSU; ECs help at the margins + scholars",
     note: "More selective than most CSUs. GPA/eligibility dominate, but leadership/service matter for Presidential / Merit Scholars invites. Weak ECs are OK for a solid admit; they hurt more for those invite-only awards.",
+  },
+  uw: {
+    weight: "medium",
+    summary: "Holistic review; essays + activities matter",
+    note: "UW is test-free and reads the whole file. GPA and senior-year rigor lead, but the writing section and sustained activities help — especially for Foster Freshman Direct and Purple & Gold. A grades-only file is softer here than at a CSU.",
   },
 };
 
@@ -1718,6 +1783,12 @@ const OFFICIAL_LINKS = {
     netPrice: "https://sacd.sdsu.edu/financial-aid/cost-of-attendance/net-price-calculator",
     tour: "https://admissions.sdsu.edu/visit",
     major: "https://business.sdsu.edu/",
+  },
+  uw: {
+    admissions: "https://admit.washington.edu/apply/first-year/",
+    netPrice: "https://www.washington.edu/financialaid/getting-started/student-budgets/",
+    tour: "https://www.washington.edu/visit/",
+    major: "https://foster.uw.edu/academics/degree-programs/undergraduate-programs/",
   },
 };
 
@@ -1941,6 +2012,15 @@ const STUDENT_VIBE = {
     reddit: "https://www.reddit.com/r/SDSU/",
     studentLife: "https://studentaffairs.sdsu.edu/",
   },
+  uw: {
+    summary: "Husky spirit + Seattle — rainy, ambitious, big-campus energy",
+    tags: ["quarter system", "U-District", "rain"],
+    praised: "Students cite the campus, city internships, school spirit, and Foster's career outcomes.",
+    criticized: "Gray winters, large intro classes, housing scramble, and Foster's second-gate admit come up a lot.",
+    niche: "https://www.niche.com/colleges/university-of-washington/",
+    reddit: "https://www.reddit.com/r/udub/",
+    studentLife: "https://www.washington.edu/studentlife/",
+  },
 };
 
 for (const school of SCHOOLS) {
@@ -2081,6 +2161,11 @@ const BUSINESS_ACCESS = {
     summary: "Fowler is large and competitive for freshmen",
     note: "Business is SDSU's largest program and competitive. Strong CSU applicant profile helps; don't assume 'admitted to SDSU' equals any concentration you want without checking impaction.",
   },
+  uw: {
+    level: "hard",
+    summary: "Foster Freshman Direct — campus admit ≠ Foster",
+    note: "List Business Administration as first-choice major for Freshman Direct. If not selected, you enter UW as a pre-major and apply to Foster later — still capacity-constrained, with admitted college GPAs often in the 3.6–3.8 range. Economics is the usual backup path.",
+  },
 };
 
 const BUSINESS_ACCESS_STYLE = {
@@ -2115,6 +2200,7 @@ const CAMPUS_COORDS = {
   humboldt: { lat: 40.875, lng: -124.078 },
   calpoly: { lat: 35.305, lng: -120.6625 },
   sdsu: { lat: 32.7757, lng: -117.0719 },
+  uw: { lat: 47.6553, lng: -122.3035 },
 };
 
 /** Fixed home base for drive estimates (not shown in UI). */
@@ -2141,6 +2227,9 @@ function estimateDrive(miles) {
   if (hours < 1.25) return { miles: Math.round(roadMiles), drive: `~${Math.round(hours * 60)} min` };
   const h = Math.floor(hours);
   const m = Math.round((hours - h) * 60);
+  if (hours >= 10) {
+    return { miles: Math.round(roadMiles), drive: `typically fly (~${Math.round(hours)} hr)` };
+  }
   const drive = m < 8 ? `~${h} hr` : m > 50 ? `~${h + 1} hr` : `~${h} hr ${m} min`;
   return { miles: Math.round(roadMiles), drive };
 }
@@ -2157,6 +2246,13 @@ for (const school of SCHOOLS) {
 }
 
 const TIMELINE = [
+  {
+    id: "uw-app",
+    when: "Nov 15",
+    title: "UW Seattle Common App",
+    detail: "University of Washington (Seattle) first-year autumn deadline is Nov 15 — two weeks before UC/CSU. No Early Action or Early Decision. List Business Administration as first-choice major for Foster Freshman Direct.",
+    applies: "UW",
+  },
   {
     id: "uc-csu-app",
     when: "Oct 1 – Nov 30",
@@ -2308,12 +2404,14 @@ const TYPE_COLOR = {
   UC: "#3D5A80",
   CSU: "#A63D2F",
   Private: "#C9A227",
+  OOS: "#4B2E83",
 };
 
 const TYPE_LABEL = {
   UC: "UC",
   CSU: "CSU",
   Private: "Private",
+  OOS: "OOS",
 };
 
 const FIT_STYLE = {
@@ -2335,6 +2433,16 @@ const EC_WEIGHT_STYLE = {
 
 function formatUSD(n) {
   return "$" + n.toLocaleString("en-US");
+}
+
+function familyCostLabel(school, variant = "short") {
+  if (school.type === "Private") {
+    return variant === "short" ? "per year" : "total annual cost of attendance";
+  }
+  if (school.type === "OOS") {
+    return variant === "short" ? "out-of-state / yr" : "nonresident, on campus / year";
+  }
+  return variant === "short" ? "CA resident / yr" : "CA resident, on campus / year";
 }
 
 /* ---------------------------------------------------------------
@@ -2580,7 +2688,12 @@ function SchoolCard({
           <Route size={14} strokeWidth={2.2} />
           <span>
             ~{school.distance.miles} mi
-            <span className="card-weather-hint"> {school.distance.drive} drive</span>
+            <span className="card-weather-hint">
+              {" "}
+              {school.distance.drive.includes("fly")
+                ? school.distance.drive
+                : `${school.distance.drive} drive`}
+            </span>
           </span>
         </div>
       )}
@@ -2591,7 +2704,7 @@ function SchoolCard({
           <div>
             <div className="stat-val">{formatUSD(school.costIn)}</div>
             <div className="stat-label">
-              {school.type === "Private" ? "per year" : "CA resident / yr"}
+              {familyCostLabel(school)}
             </div>
           </div>
         </div>
@@ -2845,7 +2958,12 @@ function DetailPanel({ school, rating, onRate, onClose }) {
         {school.distance && (
           <Section icon={<Route size={16} strokeWidth={2.2} />} title="Distance from home">
             <p className="detail-big-stat">
-              ~{school.distance.miles} mi <span>{school.distance.drive} driving (rough)</span>
+              ~{school.distance.miles} mi{" "}
+              <span>
+                {school.distance.drive.includes("fly")
+                  ? school.distance.drive
+                  : `${school.distance.drive} driving (rough)`}
+              </span>
             </p>
             <p className="detail-note">
               Estimated from map coordinates with a simple road-distance factor — not live traffic.
@@ -2859,10 +2977,10 @@ function DetailPanel({ school, rating, onRate, onClose }) {
             <div>
               <div className="cost-big">{formatUSD(school.costIn)}</div>
               <div className="cost-label">
-                {school.type === "Private" ? "total annual cost of attendance" : "CA resident, on campus / year"}
+                {familyCostLabel(school, "long")}
               </div>
             </div>
-            {school.type !== "Private" && (
+            {school.type !== "Private" && school.type !== "OOS" && (
               <div>
                 <div className="cost-big cost-big--secondary">{formatUSD(school.costOut)}</div>
                 <div className="cost-label">nonresident, on campus / year</div>
@@ -3065,7 +3183,7 @@ function ComparePanel({ schools, scores, onClose, onOpenSchool }) {
     ["Type", (s) => s.type],
     ["Region", (s) => `${s.city} — ${s.region}`],
     ["Match score", (s) => (scores[s.id] != null ? String(scores[s.id]) : "—")],
-    ["Cost (CA / yr)", (s) => formatUSD(s.costIn)],
+    ["Cost / yr", (s) => formatUSD(s.costIn)],
     ["Acceptance", (s) => s.acceptance],
     ["GPA fit", (s) => FIT_STYLE[s.gpaFit]?.label || s.gpaFit],
     ["Deadline", (s) => formatDeadline(s.deadline)],
@@ -3172,7 +3290,7 @@ function CostChart({ schools }) {
   }));
   return (
     <div className="chart-card">
-      <h3 className="chart-title">Annual cost, CA resident / on campus</h3>
+      <h3 className="chart-title">Annual cost, what you'd pay from CA / on campus</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 56 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(237,231,214,0.12)" vertical={false} />
@@ -3235,7 +3353,7 @@ const EC_STRATEGY = [
   },
   {
     title: "Match the school type",
-    body: "CSUs: weak ECs are usually fine if GPA and eligibility are solid. UCs: matter in comprehensive review at the margins. Privates (SCU, USF, Saint Mary's, Menlo, Pacific): biggest gap to close — initiative and leadership help admission and top merit.",
+    body: "CSUs: weak ECs are usually fine if GPA and eligibility are solid. UCs and UW: matter in comprehensive review at the margins. Privates (SCU, USF, Saint Mary's, Menlo, Pacific): biggest gap to close — initiative and leadership help admission and top merit.",
   },
   {
     title: "Light major alignment helps",
@@ -3409,7 +3527,7 @@ function SpreadsheetView({ schools, ratings, onRate, onOpen }) {
                 </td>
                 <td className="sheet-num">{formatUSD(s.costIn)}</td>
                 <td className="sheet-num">
-                  {s.type === "Private" ? "—" : formatUSD(s.costOut)}
+                  {s.type === "Private" || s.type === "OOS" ? "—" : formatUSD(s.costOut)}
                 </td>
                 <td className="sheet-num">{s.acceptance}</td>
                 <td>
@@ -4264,12 +4382,13 @@ export default function CollegeFinder() {
 
       <div className="hero">
         <p className="hero-eyebrow">California shortlist — business + history / poli sci minor</p>
-        <h1>24 schools, filtered for 3.67 UW / 3.79 weighted</h1>
+        <h1>25 schools, filtered for 3.67 UW / 3.79 weighted</h1>
         <p>
           End-of-junior-year GPAs: <strong>3.67 unweighted</strong> and{" "}
-          <strong>3.79 weighted</strong>. Every UC he still has a realistic shot at, plus CSUs and
-          Northern California private options — spanning Northern California, the Central Coast, the
-          Central Valley, San Diego, and the Inland Empire. Tap any school for the full picture.
+          <strong>3.79 weighted</strong>. Every UC he still has a realistic shot at, plus CSUs,
+          Northern California private options, and UW Seattle — spanning Northern California, the
+          Central Coast, the Central Valley, San Diego, the Inland Empire, and Seattle. Tap any
+          school for the full picture.
         </p>
       </div>
 
@@ -4278,13 +4397,14 @@ export default function CollegeFinder() {
         at Berkeley run well above this profile (avg weighted ~4.5) and Haas adds its own tougher
         internal admit on top of that; UCLA averages ~3.93 unweighted with an ~8.6% acceptance rate.
         Every other UC is included, badged &quot;likely&quot; or &quot;competitive&quot; based on how
-        a <strong>3.67 unweighted / 3.79 weighted</strong> profile stacks up. Tap the stars on any
+        a <strong>3.67 unweighted / 3.79 weighted</strong> profile stacks up. UW Seattle is the one
+        out-of-state school — California residents pay nonresident tuition. Tap the stars on any
         card to rate it yourselves — ratings save automatically in this browser.
       </div>
 
       <div className="controls">
         <div className="filter-group">
-          {["All", "UC", "CSU", "Private"].map((t) => (
+          {["All", "UC", "CSU", "Private", "OOS"].map((t) => (
             <button
               key={t}
               className={"filter-btn" + (filter === t ? " active" : "")}
