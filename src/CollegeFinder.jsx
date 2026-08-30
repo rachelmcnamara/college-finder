@@ -26,6 +26,7 @@ import {
   Table as TableIcon,
   LayoutGrid,
   CloudSun,
+  Percent,
   ExternalLink,
   Calendar,
   Users,
@@ -2468,6 +2469,16 @@ function SchoolCard({
 
       <StarRating value={rating} onChange={(v) => onRate(school.id, v)} />
 
+      {school.acceptance && (
+        <div className="card-acceptance">
+          <Percent size={14} strokeWidth={2.2} />
+          <span>
+            {school.acceptance}
+            <span className="card-weather-hint"> acceptance rate</span>
+          </span>
+        </div>
+      )}
+
       {school.weather && (
         <div className="card-weather">
           <CloudSun size={14} strokeWidth={2.2} />
@@ -2582,13 +2593,6 @@ function SchoolCard({
             <div className="stat-label">
               {school.type === "Private" ? "per year" : "CA resident / yr"}
             </div>
-          </div>
-        </div>
-        <div className="stat">
-          <GraduationCap size={14} strokeWidth={2.2} />
-          <div>
-            <div className="stat-val">{school.acceptance}</div>
-            <div className="stat-label">acceptance rate</div>
           </div>
         </div>
         <div className="stat">
@@ -3761,15 +3765,15 @@ export default function CollegeFinder() {
           font-size: 11px;
           color: rgba(237,231,214,0.6);
         }
-        .card-weather, .card-deadline, .card-classsize, .card-aid, .card-ecs, .card-vibe, .card-business, .card-distance {
+        .card-acceptance, .card-weather, .card-deadline, .card-classsize, .card-aid, .card-ecs, .card-vibe, .card-business, .card-distance {
           display: flex; align-items: flex-start; gap: 7px;
           font-family: 'IBM Plex Mono', monospace;
           font-size: 12px;
           color: rgba(237,231,214,0.85);
           padding: 2px 0;
         }
-        .card-weather { padding-top: 6px; }
-        .card-weather svg, .card-deadline svg, .card-classsize svg, .card-aid svg, .card-ecs svg, .card-vibe svg, .card-business svg, .card-distance svg {
+        .card-acceptance { padding-top: 6px; }
+        .card-acceptance svg, .card-weather svg, .card-deadline svg, .card-classsize svg, .card-aid svg, .card-ecs svg, .card-vibe svg, .card-business svg, .card-distance svg {
           color: var(--brass); flex-shrink: 0; margin-top: 1px;
         }
         .timeline-panel {
