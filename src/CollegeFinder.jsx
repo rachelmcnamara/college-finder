@@ -1188,6 +1188,36 @@ const LOCATION_INFO = {
   },
 };
 
+/* Short GPA band for the card face. Prefer published middle-50%
+   ranges; otherwise the published average. Confirm on each school's site. */
+const GPA_RANGES = {
+  ucdavis: { display: "3.79–4.00 UW", hint: "middle 50%" },
+  ucsc: { display: "~3.92", hint: "avg enrolled" },
+  ucmerced: { display: "~3.6", hint: "avg admitted" },
+  ucr: { display: "~3.83", hint: "avg admitted" },
+  uci: { display: "4.1–4.3 W", hint: "middle 50%" },
+  ucsd: { display: "~3.90", hint: "avg admitted" },
+  ucsb: { display: "4.05–4.29 W", hint: "middle 50%" },
+  scu: { display: "~3.86 UW", hint: "avg admitted" },
+  usf: { display: "3.6–3.7", hint: "avg admitted" },
+  smc: { display: "~3.58", hint: "avg admitted" },
+  dominican: { display: "~3.65", hint: "avg admitted" },
+  menlo: { display: "not published", hint: "no official GPA band" },
+  ggu: { display: "min ~2.0", hint: "eligibility floor" },
+  pacific: { display: "3.6–3.63 UW", hint: "avg admitted" },
+  chico: { display: "not published", hint: "accessible CSU" },
+  sacstate: { display: "3.0–3.7", hint: "middle 50%" },
+  sfsu: { display: "~3.3", hint: "avg admitted" },
+  sjsu: { display: "~3.53", hint: "avg admitted" },
+  sonoma: { display: "3.2–3.4", hint: "avg admitted" },
+  csueb: { display: "not published", hint: "GPA + coursework" },
+  csumb: { display: "3.3–3.45", hint: "avg admitted" },
+  humboldt: { display: "~3.5", hint: "avg admitted" },
+  calpoly: { display: "4.04–4.25 W", hint: "middle 50%" },
+  sdsu: { display: "~3.84", hint: "avg admitted" },
+  uw: { display: "3.75–3.98", hint: "middle 50%" },
+};
+
 /* Main undergraduate application deadline for fall entry.
    UC/CSU share system portals; private dates are the typical
    Regular Decision target — always confirm on the school site. */
@@ -2034,6 +2064,7 @@ for (const school of SCHOOLS) {
     ...(EC_WEIGHT[school.id] ? { ecs: EC_WEIGHT[school.id] } : {}),
     ...(OFFICIAL_LINKS[school.id] ? { links: OFFICIAL_LINKS[school.id] } : {}),
     ...(STUDENT_VIBE[school.id] ? { vibe: STUDENT_VIBE[school.id] } : {}),
+    ...(GPA_RANGES[school.id] ? { gpaRange: GPA_RANGES[school.id] } : {}),
   };
   Object.assign(school, extras);
 }
@@ -2583,6 +2614,16 @@ function SchoolCard({
           <span>
             {school.acceptance}
             <span className="card-weather-hint"> acceptance rate</span>
+          </span>
+        </div>
+      )}
+
+      {school.gpaRange && (
+        <div className="card-gpa">
+          <GraduationCap size={14} strokeWidth={2.2} />
+          <span>
+            {school.gpaRange.display}
+            <span className="card-weather-hint"> {school.gpaRange.hint}</span>
           </span>
         </div>
       )}
@@ -3185,6 +3226,7 @@ function ComparePanel({ schools, scores, onClose, onOpenSchool }) {
     ["Match score", (s) => (scores[s.id] != null ? String(scores[s.id]) : "—")],
     ["Cost / yr", (s) => formatUSD(s.costIn)],
     ["Acceptance", (s) => s.acceptance],
+    ["GPA range", (s) => (s.gpaRange ? `${s.gpaRange.display} (${s.gpaRange.hint})` : "—")],
     ["GPA fit", (s) => FIT_STYLE[s.gpaFit]?.label || s.gpaFit],
     ["Deadline", (s) => formatDeadline(s.deadline)],
     ["Avg class", (s) => s.classSize?.typical || "—"],
@@ -3456,6 +3498,7 @@ function SpreadsheetView({ schools, ratings, onRate, onOpen }) {
               <th>Cost (in-state)</th>
               <th>Cost (nonres.)</th>
               <th>Acceptance</th>
+              <th>GPA range</th>
               <th>GPA fit</th>
               <th>Business program</th>
               <th>Career salary</th>
@@ -3530,6 +3573,9 @@ function SpreadsheetView({ schools, ratings, onRate, onOpen }) {
                   {s.type === "Private" || s.type === "OOS" ? "—" : formatUSD(s.costOut)}
                 </td>
                 <td className="sheet-num">{s.acceptance}</td>
+                <td className="sheet-num">
+                  {s.gpaRange ? `${s.gpaRange.display} (${s.gpaRange.hint})` : "—"}
+                </td>
                 <td>
                   <FitBadge fit={s.gpaFit} />
                 </td>
@@ -3883,7 +3929,7 @@ export default function CollegeFinder() {
           font-size: 11px;
           color: rgba(237,231,214,0.6);
         }
-        .card-acceptance, .card-weather, .card-deadline, .card-classsize, .card-aid, .card-ecs, .card-vibe, .card-business, .card-distance {
+        .card-acceptance, .card-gpa, .card-weather, .card-deadline, .card-classsize, .card-aid, .card-ecs, .card-vibe, .card-business, .card-distance {
           display: flex; align-items: flex-start; gap: 7px;
           font-family: 'IBM Plex Mono', monospace;
           font-size: 12px;
@@ -3891,7 +3937,7 @@ export default function CollegeFinder() {
           padding: 2px 0;
         }
         .card-acceptance { padding-top: 6px; }
-        .card-acceptance svg, .card-weather svg, .card-deadline svg, .card-classsize svg, .card-aid svg, .card-ecs svg, .card-vibe svg, .card-business svg, .card-distance svg {
+        .card-acceptance svg, .card-gpa svg, .card-weather svg, .card-deadline svg, .card-classsize svg, .card-aid svg, .card-ecs svg, .card-vibe svg, .card-business svg, .card-distance svg {
           color: var(--brass); flex-shrink: 0; margin-top: 1px;
         }
         .timeline-panel {
