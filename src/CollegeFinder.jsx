@@ -45,7 +45,7 @@ const RATINGS_KEY = "star-ratings";
 const TIMELINE_KEY = "timeline-checks";
 
 /* ---------------------------------------------------------------
-   DATA — filtered for end-of-junior-year GPAs: 3.67 unweighted / 3.79 weighted.
+   DATA — gpaFit and gpaNote are scored against his transcript (Nov 2026).
    Figures are rounded, approximate, based on each school's most
    recently published 2025-27 figures. Costs, acceptance rates and
    GPA bands shift year to year — always confirm current numbers
@@ -54,11 +54,29 @@ const TIMELINE_KEY = "timeline-checks";
    Excluded from this list:
    - UC Berkeley: overall admit GPAs run well above this profile (avg
      weighted ~4.5 / unweighted ~3.9+), and Haas is an internal
-     sophomore-year admit on top of that — a real reach at 3.67 UW.
+     sophomore-year admit on top of that.
    - UCLA: ~3.93 unweighted average, ~8.6% acceptance — also out.
-   Cal Poly SLO stays on the list as a Central Coast reach/target
-   (avg weighted ~4.12 vs 3.79 weighted here).
+   Cal Poly SLO stays on the list as a Central Coast reach
+   (avg weighted ~4.12 vs his 3.80 CSU GPA).
 ----------------------------------------------------------------*/
+
+/* Each system recalculates GPA its own way, so one transcript yields
+   three numbers. UC and CSU: 10th–11th grade A–G courses (summer after
+   11th included), no plus/minus, honors points capped at 8 semesters
+   (his two APs = 4 semesters). Privates and UW read the school's
+   cumulative 9th–12th GPA. Assumes Ceramics 1 is A–G approved; without
+   it the UC GPA moves by 0.01–0.03. */
+const STUDENT_GPA = {
+  uc: { display: "3.60 UW / 3.80 W", hint: "his UC GPA" },
+  csu: { display: "3.80", hint: "his CSU GPA" },
+  school: { display: "3.72 UW / 3.82 W", hint: "his cumulative GPA" },
+};
+
+function studentGpaFor(school) {
+  if (school.type === "UC") return STUDENT_GPA.uc;
+  if (school.type === "CSU") return STUDENT_GPA.csu;
+  return STUDENT_GPA.school;
+}
 
 const SCHOOLS = [
   {
@@ -72,9 +90,9 @@ const SCHOOLS = [
     costOut: 84400,
     acceptance: "~40-44%",
     acceptanceNum: 42,
-    gpaFit: "competitive",
+    gpaFit: "reach",
     gpaNote:
-      "The middle 50% of admits carry a 3.79–4.00 unweighted GPA — a 3.67 UW sits just below that band, while 3.79 weighted is also modest for Davis. General campus admission is still a realistic target, not a lock. The business major itself is described by UC Davis as 'highly competitive' on top of that, with its own GPA and course requirements to declare.",
+      "The middle 50% of admits carry a 3.79–4.00 unweighted GPA. His UC GPA is 3.60 unweighted (3.80 weighted-capped), below that band at a campus admitting about 42%, so Davis is a reach. The business major adds a second filter after enrollment, with its own GPA and course requirements to declare.",
     program: {
       name: "Undergraduate Business Major (Graduate School of Management)",
       blurb:
@@ -108,9 +126,9 @@ const SCHOOLS = [
     costOut: 84600,
     acceptance: "~63-66%",
     acceptanceNum: 64,
-    gpaFit: "competitive",
+    gpaFit: "target",
     gpaNote:
-      "Average GPA among enrolled students is around 3.92, but the acceptance rate (63-66%) is by far the highest of any UC — a 3.67 UW is below the enrolled average, so this is a realistic target rather than a lock.",
+      "Average GPA among enrolled students is around 3.92, and his 3.80 UC weighted GPA sits below it. UCSC admits 63–66%, the highest rate of any selective UC here, so Santa Cruz is a realistic target rather than a lock.",
     program: {
       name: "Business Management Economics (Economics Dept.)",
       blurb:
@@ -128,7 +146,7 @@ const SCHOOLS = [
     careerNote:
       "Business Management Economics grads report a median salary of about $52,000 one year out, climbing to roughly $79,000 by year five — well above UCSC's campus-wide median. About 75% stay in the Santa Cruz or Bay Area after graduating.",
     extras: [
-      "The most accessible UC on this list by a wide margin — a genuine target rather than a reach at 3.67 UW / 3.79 weighted.",
+      "The most accessible UC on this list by a wide margin — a genuine target rather than a reach at his 3.80 UC GPA.",
       "Application deadline: Nov 30 (UC system).",
       "Best fit if a laid-back, nature-forward UC campus matters as much as the UC name itself.",
     ],
@@ -144,9 +162,9 @@ const SCHOOLS = [
     costOut: 73000,
     acceptance: "~89%",
     acceptanceNum: 89,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.6, and UC Merced is the most accessible campus in the entire UC system by acceptance rate — a 3.67 UW is a comfortable, likely admit.",
+      "Average admitted GPA is around 3.6, and Merced is the most accessible UC by acceptance rate (~89%). His 3.80 UC weighted GPA clears that average, so Merced is a likely admit.",
     program: {
       name: "Management & Business Economics (B.S.) / Business Administration (B.A.)",
       blurb:
@@ -180,9 +198,9 @@ const SCHOOLS = [
     costOut: 79000,
     acceptance: "~87%",
     acceptanceNum: 87,
-    gpaFit: "competitive",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is right around 3.83 — a 3.67 UW sits below that average — but the overall acceptance rate (86-89%) is one of the highest in the UC system. Still a realistic target, not a lock on GPA alone.",
+      "Average admitted GPA is about 3.83, and his 3.80 UC weighted GPA sits right at it. With an 86–89% acceptance rate, one of the highest in the UC system, Riverside is a likely admit.",
     program: {
       name: "School of Business — B.S. Business Administration",
       blurb:
@@ -216,9 +234,9 @@ const SCHOOLS = [
     costOut: 86000,
     acceptance: "~29%",
     acceptanceNum: 29,
-    gpaFit: "competitive",
+    gpaFit: "reach",
     gpaNote:
-      "The middle 50% of admits carry a 4.1–4.3 weighted GPA — a 3.79 weighted sits well below that band. This is a genuine target, not a safety, and more of a stretch than Irvine's overall reputation might suggest at first glance.",
+      "The middle 50% of admits carry a 4.1–4.3 weighted GPA. His 3.80 UC weighted GPA sits well below that band, and Irvine admits about 29%, so Irvine is a reach.",
     program: {
       name: "Paul Merage School of Business",
       blurb:
@@ -252,9 +270,9 @@ const SCHOOLS = [
     costOut: 80500,
     acceptance: "~27%",
     acceptanceNum: 27,
-    gpaFit: "competitive",
+    gpaFit: "reach",
     gpaNote:
-      "Average admitted GPA is reported around 3.90, though competitive applicants often present a UC-weighted GPA of 4.0+ (roughly 3.7-3.8 unweighted). A 3.67 UW / 3.79 weighted sits a bit below that neighborhood — a real target, not a safety, and not a Berkeley/UCLA-level reach either.",
+      "Average admitted GPA is reported around 3.90, and competitive applicants usually present a UC weighted GPA of 4.0+ (roughly 3.7–3.8 unweighted). His UC GPA of 3.80 weighted / 3.60 unweighted sits below both, at a campus admitting about 27%, so San Diego is a reach.",
     program: {
       name: "No dedicated business school — Business Economics B.S. (Rady + Economics)",
       blurb:
@@ -288,9 +306,9 @@ const SCHOOLS = [
     costOut: 86000,
     acceptance: "~38%",
     acceptanceNum: 38,
-    gpaFit: "competitive",
+    gpaFit: "reach",
     gpaNote:
-      "Admitted students post a middle-50% weighted GPA of roughly 4.05–4.29 — high, and a 3.79 weighted sits below that band. UCSB's acceptance rate has climbed recently (34–44% depending on residency and year), so this is still a real if optimistic target rather than a firm reach.",
+      "Admitted students post a middle-50% weighted GPA of roughly 4.05–4.29, and his 3.80 UC weighted GPA sits below the bottom of that band. UCSB's acceptance rate has climbed recently (34–44% depending on residency and year), but on GPA Santa Barbara is still a reach.",
     program: {
       name: "No dedicated business major — Economics B.A. + Technology Management certificate",
       blurb:
@@ -324,9 +342,9 @@ const SCHOOLS = [
     costOut: 83000,
     acceptance: "~44-49%",
     acceptanceNum: 46,
-    gpaFit: "competitive",
+    gpaFit: "reach",
     gpaNote:
-      "Average unweighted GPA for admits is around 3.86 — a 3.67 UW is meaningfully below that average. Santa Clara is holistic, not GPA-cutoff-driven, so this remains a genuine target rather than a hard reach, but GPA is no longer a near-match.",
+      "Average unweighted GPA for admits is around 3.86, and his 3.72 cumulative unweighted GPA sits meaningfully below it. Santa Clara reads holistically and will see his senior-year grades (A-range so far in Statistics and Spanish 3), but on GPA alone Santa Clara is a reach.",
     program: {
       name: "Leavey School of Business",
       blurb:
@@ -360,9 +378,9 @@ const SCHOOLS = [
     costOut: 90000,
     acceptance: "~62-72%",
     acceptanceNum: 67,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.6-3.7, with an acceptance rate in the 60s to low 70s% — a 3.67 UW sits right in that band, a comfortable admit.",
+      "Average admitted GPA is around 3.6–3.7, with an acceptance rate in the 60s to low 70s%. His 3.72 cumulative unweighted GPA sits at the top of that range, so USF is a likely admit.",
     program: {
       name: "School of Management",
       blurb:
@@ -396,9 +414,9 @@ const SCHOOLS = [
     costOut: 77000,
     acceptance: "~87-89%",
     acceptanceNum: 88,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.58, and the acceptance rate (87-89%) is one of the most generous on this entire list — a 3.67 UW is a comfortable admit.",
+      "Average admitted GPA is around 3.58, and the acceptance rate (87–89%) is one of the most generous on this list. His 3.72 cumulative unweighted GPA clears the average, so Saint Mary's is a likely admit.",
     program: {
       name: "School of Economics and Business Administration",
       blurb:
@@ -432,9 +450,9 @@ const SCHOOLS = [
     costOut: 73500,
     acceptance: "~83-96%",
     acceptanceNum: 88,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.65, with acceptance rates commonly reported in the 80s to mid-90s% — a 3.67 UW is a comfortable, likely admit.",
+      "Average admitted GPA is around 3.65, with acceptance rates commonly reported in the 80s to mid-90s%. His 3.72 cumulative unweighted GPA sits above the average, so Dominican is a likely admit.",
     program: {
       name: "Barowsky School of Business",
       blurb:
@@ -468,9 +486,9 @@ const SCHOOLS = [
     costOut: 72000,
     acceptance: "~60-68%",
     acceptanceNum: 64,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "No published average GPA, but the acceptance rate (60-68%) and modest test-score ranges suggest GPA isn't a hard barrier here — a 3.67 UW / 3.79 weighted should be a comfortable admit.",
+      "No published average GPA, but the acceptance rate (60–68%) and modest test-score ranges suggest GPA isn't a hard barrier. At 3.72 unweighted / 3.82 weighted, Menlo is a likely admit.",
     program: {
       name: "School of Business",
       blurb:
@@ -504,9 +522,9 @@ const SCHOOLS = [
     costOut: 31000,
     acceptance: "~58-83%",
     acceptanceNum: 70,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Undergraduate admission is generally accessible, with a minimum GPA around 2.0 and acceptance rates commonly reported between 58% and 83% — a 3.67 UW is well above what's needed.",
+      "Undergraduate admission is generally accessible, with a minimum GPA around 2.0 and acceptance rates commonly reported between 58% and 83%. His 3.72 cumulative unweighted GPA is well above what's needed.",
     program: {
       name: "Undergraduate business, accounting, and management degrees",
       blurb:
@@ -540,9 +558,9 @@ const SCHOOLS = [
     costOut: 67000,
     acceptance: "~93-95%",
     acceptanceNum: 94,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average unweighted admitted GPA is around 3.6-3.63, with a very high acceptance rate (93-95%) — a 3.67 UW is a comfortable, likely admit.",
+      "Average unweighted admitted GPA is around 3.6–3.63, with a very high acceptance rate (93–95%). His 3.72 cumulative unweighted GPA sits above it, so Pacific is a likely admit.",
     program: {
       name: "Eberhardt School of Business",
       blurb:
@@ -576,9 +594,9 @@ const SCHOOLS = [
     costOut: 42900,
     acceptance: "~92%",
     acceptanceNum: 92,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "One of the most accessible campuses on this list — GPA is a factor but not a serious barrier at 3.67 UW; this is a comfortable, likely admit.",
+      "One of the most accessible campuses on this list. His 3.80 CSU GPA is well above what Chico needs, so Chico is a likely admit.",
     program: {
       name: "College of Business",
       blurb:
@@ -612,9 +630,9 @@ const SCHOOLS = [
     costOut: 44000,
     acceptance: "~93-94%",
     acceptanceNum: 93,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.4, with a middle-50% range of about 3.0–3.7 — a 3.67 UW sits at the top of that band, a comfortable admit.",
+      "Average admitted GPA is around 3.4, with a middle-50% range of about 3.0–3.7. His 3.80 CSU GPA sits above the top of that band, so Sac State is a likely admit.",
     program: {
       name: "College of Business Administration",
       blurb:
@@ -648,9 +666,9 @@ const SCHOOLS = [
     costOut: 44000,
     acceptance: "~90-96%",
     acceptanceNum: 92,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.3 — a 3.67 UW is well above average here and this is a comfortable admit.",
+      "Average admitted GPA is around 3.3, and his 3.80 CSU GPA is well above it. SF State is a likely admit.",
     program: {
       name: "College of Business",
       blurb:
@@ -684,9 +702,9 @@ const SCHOOLS = [
     costOut: 48000,
     acceptance: "~85%",
     acceptanceNum: 85,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.53 — a 3.67 UW is above that average. Note that all SJSU majors are officially 'impacted,' meaning competitive admission applies campus-wide, but the GPA bar itself is well within reach.",
+      "Average admitted GPA is around 3.53, and his 3.80 CSU GPA sits well above it. Every SJSU major is officially 'impacted,' so competitive admission applies campus-wide, but the GPA bar is well within his reach.",
     program: {
       name: "Lucas College and Graduate School of Business",
       blurb:
@@ -720,9 +738,9 @@ const SCHOOLS = [
     costOut: 40000,
     acceptance: "~94-95%",
     acceptanceNum: 94,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is roughly 3.2–3.4, with a very high overall acceptance rate — a 3.67 UW is a comfortable, easy admit here.",
+      "Average admitted GPA is roughly 3.2–3.4, with a very high overall acceptance rate. His 3.80 CSU GPA makes Sonoma State a likely admit.",
     program: {
       name: "School of Business and Economics",
       blurb:
@@ -756,9 +774,9 @@ const SCHOOLS = [
     costOut: 41000,
     acceptance: "~80-97%",
     acceptanceNum: 85,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Admission is driven mainly by GPA and coursework; a 3.67 UW is well within reach here, though the university notes Business Administration draws a deeper applicant pool than the campus-wide average.",
+      "Admission is driven mainly by GPA and coursework, and his 3.80 CSU GPA is well within reach. The university notes Business Administration draws a deeper applicant pool than the campus-wide average.",
     program: {
       name: "College of Business and Economics",
       blurb:
@@ -792,9 +810,9 @@ const SCHOOLS = [
     costOut: 41500,
     acceptance: "~95-97%",
     acceptanceNum: 96,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.3–3.45, with one of the highest acceptance rates on this list — a 3.67 UW is a very comfortable admit.",
+      "Average admitted GPA is around 3.3–3.45, with one of the highest acceptance rates on this list. His 3.80 CSU GPA makes Monterey Bay a likely admit.",
     program: {
       name: "College of Business",
       blurb:
@@ -828,9 +846,9 @@ const SCHOOLS = [
     costOut: 38000,
     acceptance: "~92-99%",
     acceptanceNum: 95,
-    gpaFit: "comfortable",
+    gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is around 3.5, with an acceptance rate near or above 90% — a 3.67 UW is a comfortable, easy admit here.",
+      "Average admitted GPA is around 3.5, with an acceptance rate near or above 90%. His 3.80 CSU GPA makes Cal Poly Humboldt a likely admit.",
     program: {
       name: "School of Business",
       blurb:
@@ -864,9 +882,9 @@ const SCHOOLS = [
     costOut: 52200,
     acceptance: "~28%",
     acceptanceNum: 28,
-    gpaFit: "competitive",
+    gpaFit: "reach",
     gpaNote:
-      "Middle 50% of admits carry a 4.04–4.25 weighted GPA (avg ~4.12) — Cal Poly is the most selective CSU by a wide margin, and admits by major. A 3.79 weighted sits well below that band, so this is a genuine reach/target rather than a safety.",
+      "Middle 50% of admits carry a 4.04–4.25 weighted GPA (avg ~4.12). Cal Poly is the most selective CSU by a wide margin and admits by major. His 3.80 CSU GPA sits well below that band, so Cal Poly is a reach.",
     program: {
       name: "Orfalea College of Business",
       blurb:
@@ -900,9 +918,9 @@ const SCHOOLS = [
     costOut: 42600,
     acceptance: "~34%",
     acceptanceNum: 34,
-    gpaFit: "competitive",
+    gpaFit: "target",
     gpaNote:
-      "Average admitted GPA is around 3.84 — a 3.67 UW sits below that average — and the ~34% acceptance rate puts SDSU in match/reach territory rather than a likely admit.",
+      "Average admitted GPA is around 3.84, and his 3.80 CSU GPA sits just under it. With a ~34% acceptance rate, SDSU is a real target, leaning reach for business because he applies from outside San Diego County.",
     program: {
       name: "Fowler College of Business",
       blurb:
@@ -936,9 +954,9 @@ const SCHOOLS = [
     costOut: 69600,
     acceptance: "~39%",
     acceptanceNum: 39,
-    gpaFit: "competitive",
+    gpaFit: "reach",
     gpaNote:
-      "Middle 50% of autumn 2025 admits posted a 3.75–3.98 high-school GPA — a 3.67 UW sits below that band. Nonresident admit rate runs around 39% (a bit below the overall ~42%). Campus admission is a real target, not a lock. Foster Freshman Direct is a second, tighter filter on top of that — list Business Administration as the first-choice major, or plan on applying to Foster after freshman year.",
+      "Middle 50% of autumn 2025 admits posted a 3.75–3.98 high-school GPA, and his 3.72 cumulative unweighted GPA sits just below that band. The nonresident admit rate runs around 39% (a bit below the overall ~42%), so campus admission is a reach. Foster Freshman Direct is a second, tighter filter on top of that — list Business Administration as the first-choice major, or plan on applying to Foster after freshman year.",
     program: {
       name: "Michael G. Foster School of Business",
       blurb:
@@ -1544,7 +1562,7 @@ const EC_WEIGHT = {
   ucdavis: {
     weight: "medium",
     summary: "Matter in comprehensive review; GPA still leads",
-    note: "UC Davis reads the full application. At 3.67 UW (just below the middle-50%), sustained ECs, leadership, or work/family responsibilities can tip a competitive file — especially for the selective business major path after enrollment.",
+    note: "UC Davis reads the full application. At a 3.60 UC unweighted GPA (below the middle-50%), sustained ECs, leadership, or work/family responsibilities can tip a competitive file — especially for the selective business major path after enrollment.",
   },
   ucsc: {
     weight: "medium",
@@ -1554,7 +1572,7 @@ const EC_WEIGHT = {
   ucmerced: {
     weight: "medium",
     summary: "Less make-or-break than selective UCs",
-    note: "Most accessible UC on this list. Strong grades carry more of the decision; ECs still help for scholarships and standing out, but a thin résumé rarely sinks a solid 3.67 UW here.",
+    note: "Most accessible UC on this list. Strong grades carry more of the decision; ECs still help for scholarships and standing out, but a thin résumé rarely sinks a solid 3.80 UC GPA here.",
   },
   ucr: {
     weight: "medium",
@@ -1649,7 +1667,7 @@ const EC_WEIGHT = {
   humboldt: {
     weight: "low",
     summary: "CSU — ECs secondary",
-    note: "Accessible CSU admit profile. Activities help you thrive on a residential campus and for scholarships; they seldom decide admission at 3.67 UW.",
+    note: "Accessible CSU admit profile. Activities help you thrive on a residential campus and for scholarships; they seldom decide admission at a 3.80 CSU GPA.",
   },
   calpoly: {
     weight: "medium",
@@ -2401,7 +2419,7 @@ function norm(value, min, max, invert = false) {
 function scoreSchool(school, weights) {
   const afford = norm(school.costIn, SCORE_RANGES.costMin, SCORE_RANGES.costMax, true);
   const admitRaw = norm(school.acceptanceNum, SCORE_RANGES.accMin, SCORE_RANGES.accMax);
-  const gpaBoost = school.gpaFit === "comfortable" ? 1 : 0.55;
+  const gpaBoost = { likely: 1, target: 0.55, reach: 0.2 }[school.gpaFit] ?? 0.55;
   const admitOdds = admitRaw * 0.7 + gpaBoost * 0.3;
   const smallClasses = norm(
     school.classSize?.averageNum || 30,
@@ -2446,8 +2464,9 @@ const TYPE_LABEL = {
 };
 
 const FIT_STYLE = {
-  comfortable: { color: "#7A9471", label: "Likely at 3.67 UW" },
-  competitive: { color: "#C9A227", label: "Competitive at 3.67 UW" },
+  likely: { color: "#7A9471", label: "Likely for him" },
+  target: { color: "#C9A227", label: "Target for him" },
+  reach: { color: "#A63D2F", label: "Reach for him" },
 };
 
 const AID_LEAN_STYLE = {
@@ -2524,7 +2543,7 @@ function TypeTag({ type }) {
 
 function FitBadge({ fit }) {
   const f = FIT_STYLE[fit];
-  const Icon = fit === "comfortable" ? CheckCircle2 : AlertTriangle;
+  const Icon = fit === "likely" ? CheckCircle2 : fit === "target" ? TrendingUp : AlertTriangle;
   return (
     <span className="fit-badge" style={{ color: f.color, borderColor: f.color }}>
       <Icon size={12} strokeWidth={2.4} /> {f.label}
@@ -2627,6 +2646,14 @@ function SchoolCard({
           </span>
         </div>
       )}
+
+      <div className="card-gpa">
+        <TrendingUp size={14} strokeWidth={2.2} />
+        <span>
+          {studentGpaFor(school).display}
+          <span className="card-weather-hint"> {studentGpaFor(school).hint}</span>
+        </span>
+      </div>
 
       {school.weather && (
         <div className="card-weather">
@@ -3034,8 +3061,14 @@ function DetailPanel({ school, rating, onRate, onClose }) {
           </p>
         </Section>
 
-        <Section icon={<GraduationCap size={16} strokeWidth={2.2} />} title="Getting in, at 3.67 UW / 3.79 W">
+        <Section icon={<GraduationCap size={16} strokeWidth={2.2} />} title="His odds of getting in">
           <p className="detail-big-stat">{school.acceptance} <span>overall acceptance rate</span></p>
+          <p className="detail-note detail-note--strong">
+            {studentGpaFor(school).display} <span>{studentGpaFor(school).hint}</span>
+            {school.gpaRange && (
+              <> vs. {school.gpaRange.display} <span>{school.gpaRange.hint}</span></>
+            )}
+          </p>
           <p className="detail-note">{school.gpaNote}</p>
         </Section>
 
@@ -4428,10 +4461,12 @@ export default function CollegeFinder() {
 
       <div className="hero">
         <p className="hero-eyebrow">California shortlist — business + history / poli sci minor</p>
-        <h1>25 schools, filtered for 3.67 UW / 3.79 weighted</h1>
+        <h1>25 schools, scored against his transcript</h1>
         <p>
-          End-of-junior-year GPAs: <strong>3.67 unweighted</strong> and{" "}
-          <strong>3.79 weighted</strong>. Every UC he still has a realistic shot at, plus CSUs,
+          Each system reads his transcript differently: a <strong>3.80 UC GPA</strong> (3.60
+          unweighted), a <strong>3.80 CSU GPA</strong>, and a{" "}
+          <strong>3.72 unweighted / 3.82 weighted</strong> cumulative GPA for privates and UW. Every
+          UC he still has a realistic shot at, plus CSUs,
           Northern California private options, and UW Seattle — spanning Northern California, the
           Central Coast, the Central Valley, San Diego, the Inland Empire, and Seattle. Tap any
           school for the full picture.
@@ -4442,8 +4477,9 @@ export default function CollegeFinder() {
         <strong>What's out, and why:</strong> UC Berkeley and UCLA are both out — overall admit GPAs
         at Berkeley run well above this profile (avg weighted ~4.5) and Haas adds its own tougher
         internal admit on top of that; UCLA averages ~3.93 unweighted with an ~8.6% acceptance rate.
-        Every other UC is included, badged &quot;likely&quot; or &quot;competitive&quot; based on how
-        a <strong>3.67 unweighted / 3.79 weighted</strong> profile stacks up. UW Seattle is the one
+        Every other UC is included. Each school is badged <strong>likely</strong>,{" "}
+        <strong>target</strong>, or <strong>reach</strong> by comparing the GPA that school
+        actually calculates from his transcript with its published admit range. UW Seattle is the one
         out-of-state school — California residents pay nonresident tuition. Tap the stars on any
         card to rate it yourselves — ratings save automatically in this browser.
       </div>
@@ -4530,9 +4566,10 @@ export default function CollegeFinder() {
       <p className="footnote">
         Figures are rounded and based on each school's most recently published cost, admissions, and
         housing data as of 2026. Acceptance rates, GPA bands, and costs change year to year — confirm
-        current numbers on each school's admissions and financial aid pages before applying. "Likely at
-        3.67 UW" / "Competitive at 3.67 UW" reflect how a 3.67 unweighted / 3.79 weighted junior-year
-        GPA compares to each school's published average or middle-50% range, not a guarantee of
+        current numbers on each school's admissions and financial aid pages before applying. The
+        Likely / Target / Reach badges compare his recalculated GPA (UC and CSU: 10th–11th grade A–G
+        courses, no plus/minus, capped honors points; privates and UW: cumulative school GPA) with
+        each school's published average or middle-50% range. They are not a guarantee of
         admission — holistic factors,
         specific major impaction, and course rigor all matter too. Campus-life ratings are informed
         estimates based on housing guarantees and published student surveys, not official
