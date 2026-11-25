@@ -1,6 +1,6 @@
 # California College Finder
 
-Interactive shortlist of California colleges (plus UW Seattle) filtered for end-of-junior-year GPAs of **3.67 unweighted / 3.79 weighted**, focused on business majors with history / poli sci minor options.
+Interactive shortlist of California colleges (plus UW Seattle) badged Likely / Target / Reach against his transcript (3.80 UC GPA, 3.80 CSU GPA, 3.72 unweighted / 3.82 weighted cumulative), focused on business majors with history / poli sci minor options.
 
 **Live site:** https://rachelmcnamara.github.io/college-finder/
 
