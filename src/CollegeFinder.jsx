@@ -63,9 +63,10 @@ const TIMELINE_KEY = "timeline-checks";
 /* Each system recalculates GPA its own way, so one transcript yields
    three numbers. UC and CSU: 10th–11th grade A–G courses (summer after
    11th included), no plus/minus, honors points capped at 8 semesters
-   (his two APs = 4 semesters). Privates and UW read the school's
-   cumulative 9th–12th GPA. Assumes Ceramics 1 is A–G approved; without
-   it the UC GPA moves by 0.01–0.03. */
+   (his two APs = 4 semesters). The UC/CSU number drops 9th grade,
+   non-A–G classes (PE, Health, Tutorial) and senior year, so it reads
+   lower than the school GPA without any grade getting worse. Privates
+   and UW read the school's cumulative 9th–12th GPA. */
 const STUDENT_GPA = {
   uc: { display: "3.60 UW / 3.80 W", hint: "his UC GPA" },
   csu: { display: "3.80", hint: "his CSU GPA" },
