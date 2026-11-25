@@ -1968,7 +1968,7 @@ const STUDENT_VIBE = {
     criticized: "Competitive grading, crowded intro classes, and expensive, scarce housing come up constantly.",
     niche: "https://www.niche.com/colleges/university-of-california---berkeley/",
     reddit: "https://www.reddit.com/r/berkeley/",
-    studentLife: "https://lead.berkeley.edu/",
+    studentLife: "https://studentaffairs.berkeley.edu/",
   },
   ucsd: {
     summary: "Brilliant & beach-adjacent — socially awkward stereotype (half joke)",
@@ -4550,7 +4550,7 @@ export default function CollegeFinder() {
           Each system reads his transcript differently: a <strong>3.80 UC GPA</strong> (3.60
           unweighted), a <strong>3.80 CSU GPA</strong>, and a{" "}
           <strong>3.72 unweighted / 3.82 weighted</strong> cumulative GPA for privates and UW. Every
-          UC he still has a realistic shot at, plus CSUs,
+          UC he still has a realistic shot at, UC Berkeley as his dream-school reach, plus CSUs,
           Northern California private options, and UW Seattle — spanning Northern California, the
           Central Coast, the Central Valley, San Diego, the Inland Empire, and Seattle. Tap any
           school for the full picture.
