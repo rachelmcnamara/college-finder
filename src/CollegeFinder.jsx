@@ -201,7 +201,7 @@ const SCHOOLS = [
     acceptanceNum: 87,
     gpaFit: "likely",
     gpaNote:
-      "Average admitted GPA is about 3.83, and his 3.80 UC weighted GPA sits right at it. With an 86–89% acceptance rate, one of the highest in the UC system, Riverside is a likely admit.",
+      "Average admitted GPA is about 3.83, and his 3.80 UC weighted GPA sits just under it. With an 86–89% acceptance rate, one of the highest in the UC system, Riverside is a likely admit.",
     program: {
       name: "School of Business — B.S. Business Administration",
       blurb:
@@ -3066,9 +3066,6 @@ function DetailPanel({ school, rating, onRate, onClose }) {
           <p className="detail-big-stat">{school.acceptance} <span>overall acceptance rate</span></p>
           <p className="detail-note detail-note--strong">
             {studentGpaFor(school).display} <span>{studentGpaFor(school).hint}</span>
-            {school.gpaRange && (
-              <> vs. {school.gpaRange.display} <span>{school.gpaRange.hint}</span></>
-            )}
           </p>
           <p className="detail-note">{school.gpaNote}</p>
         </Section>
