@@ -51,11 +51,10 @@ const TIMELINE_KEY = "timeline-checks";
    GPA bands shift year to year — always confirm current numbers
    on the school's own admissions & financial aid pages.
 
+   UC Berkeley is on the list by request as a long-shot reach (middle 50%
+   3.90–4.00 UW, ~11% admit).
    Excluded from this list:
-   - UC Berkeley: overall admit GPAs run well above this profile (avg
-     weighted ~4.5 / unweighted ~3.9+), and Haas is an internal
-     sophomore-year admit on top of that.
-   - UCLA: ~3.93 unweighted average, ~8.6% acceptance — also out.
+   - UCLA: ~3.93 unweighted average, ~8.6% acceptance.
    Cal Poly SLO stays on the list as a Central Coast reach
    (avg weighted ~4.12 vs his 3.80 CSU GPA).
 ----------------------------------------------------------------*/
@@ -80,6 +79,42 @@ function studentGpaFor(school) {
 }
 
 const SCHOOLS = [
+  {
+    id: "berkeley",
+    name: "UC Berkeley",
+    fullName: "University of California, Berkeley",
+    type: "UC",
+    city: "Berkeley",
+    region: "Bay Area",
+    costIn: 54700,
+    costOut: 93900,
+    acceptance: "~11%",
+    acceptanceNum: 11,
+    gpaFit: "reach",
+    gpaNote:
+      "The middle 50% of 2026 admits carry a 3.90–4.00 unweighted and 4.36–4.72 weighted GPA, and Berkeley admits about 11% of 133,000 applicants. His UC GPA of 3.60 unweighted / 3.80 weighted sits well below both bands, so Berkeley is a long-shot reach. Essays, activities, and his senior-year grades carry real weight in Berkeley's holistic read, but they would have to do most of the work.",
+    program: {
+      name: "Haas School of Business — Spieker Undergraduate Business Program",
+      blurb:
+        "Haas now admits freshmen directly through the four-year Spieker Program (first cohort enrolled fall 2024), alongside the Global Management Program and the engineering-plus-business M.E.T. program. Applicants list Haas as their primary major on the UC application, then submit a Haas supplement (essay plus video interview) in early January. The catch: an applicant Haas turns down is not considered for any other Berkeley major. Current Berkeley students can still apply to the two-year Haas program as sophomores.",
+      ranking: "Top-ranked public undergraduate business school",
+    },
+    minors:
+      "History and Political Science are among the strongest departments in the country, and both are open as majors or minors in the College of Letters & Science. Applying to L&S in one of them, then applying to the two-year Haas program as a sophomore, avoids the all-or-nothing Haas freshman application.",
+    housing: {
+      dial: 3,
+      note: "Incoming freshmen are guaranteed campus housing, but most upperclassmen move into Berkeley's tight, expensive rental market. Dense, urban, and intensely academic rather than a self-contained residential campus.",
+    },
+    goodFor: "His dream school — a long-shot reach worth one application",
+    careerSalary: "~$100k (Haas, avg start)",
+    careerNote:
+      "Haas reports an average starting salary of $100,000 for the class of 2025, with 90% of graduates placed in a job or further study within three months. Strong pipelines into consulting, finance, and Bay Area tech.",
+    extras: [
+      "Choosing Haas as the primary major is all-or-nothing: a Haas denial means no Berkeley admission at all. Applying to L&S as a History or Political Science major keeps the rest of Berkeley in play.",
+      "Application deadline: Nov 30 (UC system); Haas supplement due early January.",
+      "Worth one application as a dream school. Budget the time for the PIQs and, if he picks Haas, the supplement.",
+    ],
+  },
   {
     id: "ucdavis",
     name: "UC Davis",
@@ -205,7 +240,7 @@ const SCHOOLS = [
     program: {
       name: "School of Business — B.S. Business Administration",
       blurb:
-        "UCR is home to the largest undergraduate business program in the entire UC system, with concentrations in accounting, finance, marketing, management, business analytics, and information systems, plus the only actuarial science degree housed in a UC business school. Freshmen enter as Pre-Business and formally declare the major junior year, but — unlike Berkeley or Davis — this isn't described as a brutally competitive internal admit.",
+        "UCR is home to the largest undergraduate business program in the entire UC system, with concentrations in accounting, finance, marketing, management, business analytics, and information systems, plus the only actuarial science degree housed in a UC business school. Freshmen enter as Pre-Business and formally declare the major junior year, but — unlike Davis — this isn't described as a brutally competitive internal admit.",
       ranking: "Largest UC undergrad business program",
     },
     minors:
@@ -241,7 +276,7 @@ const SCHOOLS = [
     program: {
       name: "Paul Merage School of Business",
       blurb:
-        "Merage's undergrad Business Administration program is solidly ranked nationally (roughly top 30) and AACSB-accredited, with real concentrations in finance, marketing, and entrepreneurship. Unlike Berkeley or Davis, you can apply to it directly as a freshman rather than competing for an internal sophomore-year admit.",
+        "Merage's undergrad Business Administration program is solidly ranked nationally (roughly top 30) and AACSB-accredited, with real concentrations in finance, marketing, and entrepreneurship. Unlike Davis, you can apply to it directly as a freshman rather than competing for an internal admit after enrolling.",
       ranking: "~#27 nationally (undergrad business, U.S. News)",
     },
     minors:
@@ -255,7 +290,7 @@ const SCHOOLS = [
     careerNote:
       "Business Administration grads report a median salary of about $86,000 — the highest figure among the UC business programs on this list, and top-4-nationally in College Factual's ranking for the major.",
     extras: [
-      "Big advantage over Berkeley/UCLA: you apply directly to the business major as a freshman — no internal-admission gauntlet.",
+      "Big advantage over Davis: you apply directly to the business major as a freshman, and a business denial doesn't cost you the rest of the campus the way a Haas denial does at Berkeley.",
       "Application deadline: Nov 30 (UC system).",
       "Best fit if you want UC prestige plus a real, direct-entry business degree, and are comfortable with a genuine (not guaranteed) target school.",
     ],
@@ -1031,6 +1066,15 @@ const LOCATION_INFO = {
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=University+of+California+Irvine",
   },
+  berkeley: {
+    weather: {
+      summerHigh: 71,
+      winterHigh: 57,
+      rainNote: "Cool, foggy summers on the Bay; rain concentrated Nov–Mar.",
+    },
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=University+of+California+Berkeley",
+  },
   ucsd: {
     weather: {
       summerHigh: 75,
@@ -1215,6 +1259,7 @@ const GPA_RANGES = {
   ucmerced: { display: "~3.6", hint: "avg admitted" },
   ucr: { display: "~3.83", hint: "avg admitted" },
   uci: { display: "4.1–4.3 W", hint: "middle 50%" },
+  berkeley: { display: "3.90–4.00 UW", hint: "middle 50%" },
   ucsd: { display: "~3.90", hint: "avg admitted" },
   ucsb: { display: "4.05–4.29 W", hint: "middle 50%" },
   scu: { display: "~3.86 UW", hint: "avg admitted" },
@@ -1246,6 +1291,11 @@ const APPLICATION_DEADLINES = {
   ucmerced: { date: "Nov 30", system: "UC Application" },
   ucr: { date: "Nov 30", system: "UC Application" },
   uci: { date: "Nov 30", system: "UC Application" },
+  berkeley: {
+    date: "Nov 30",
+    system: "UC Application",
+    note: "Haas applicants also submit the Haas supplemental application (essay + video interview) by early January.",
+  },
   ucsd: { date: "Nov 30", system: "UC Application" },
   ucsb: { date: "Nov 30", system: "UC Application" },
   scu: {
@@ -1324,6 +1374,11 @@ const CLASS_SIZES = {
     typical: "~32",
     averageNum: 32,
     note: "Typical UC mix: mid-size upper-division, large lower-division lectures.",
+  },
+  berkeley: {
+    typical: "~35",
+    averageNum: 35,
+    note: "Large research university — intro lectures can run into the hundreds; Haas core classes are much smaller.",
   },
   ucsd: {
     typical: "~35",
@@ -1455,6 +1510,11 @@ const FINANCIAL_AID = {
     summary: "Need-based + named merit via UC App",
     note: "Blue & Gold / Cal Grant / MCS for eligible CA residents. Named awards (Regents, Chancellor's, Directors') selected through UC Application review — competitive, amounts often unpublished.",
   },
+  berkeley: {
+    lean: "need",
+    summary: "Need-based UC aid; Blue & Gold covers tuition under $80k income",
+    note: "Berkeley's 2026–27 cost of attendance is about $54,700 for a CA resident in the dorms. Aid is need-based (Blue & Gold, Cal Grant, Middle Class Scholarship); there's little merit money for freshmen.",
+  },
   ucsd: {
     lean: "need",
     summary: "Need-based UC aid; thin nonresident merit",
@@ -1584,6 +1644,11 @@ const EC_WEIGHT = {
     weight: "medium",
     summary: "Matter more — selective campus + Merage path",
     note: "More selective than Merced/Riverside. PIQs and activities help differentiate similar GPAs. Leadership, research, work, or community impact strengthen both admission and named-scholarship consideration.",
+  },
+  berkeley: {
+    weight: "high",
+    summary: "Holistic read — PIQs and activities carry a lot",
+    note: "Berkeley reads every application in full. With his GPA below the middle 50%, the PIQs, sustained activities, and leadership have to carry the file. The Haas supplement adds an essay and video interview that weigh heavily for business applicants.",
   },
   ucsd: {
     weight: "medium",
@@ -1718,6 +1783,12 @@ const OFFICIAL_LINKS = {
     netPrice: "https://www.ofas.uci.edu/content/estimatingCost.php",
     tour: "https://admissions.uci.edu/visit/",
     major: "https://merage.uci.edu/programs/undergraduate/",
+  },
+  berkeley: {
+    admissions: "https://admissions.berkeley.edu/",
+    netPrice: "https://financialaid.berkeley.edu/how-aid-works/student-budgets-cost-of-attendance/",
+    tour: "https://visit.berkeley.edu/",
+    major: "https://haas.berkeley.edu/undergrad/admissions/application-process/high-school-students/",
   },
   ucsd: {
     admissions: "https://admissions.ucsd.edu/",
@@ -1889,6 +1960,15 @@ const STUDENT_VIBE = {
     niche: "https://www.niche.com/colleges/university-of-california---irvine/",
     reddit: "https://www.reddit.com/r/UCI/",
     studentLife: "https://studentlife.uci.edu/",
+  },
+  berkeley: {
+    summary: "Intense, brilliant, political — big-city energy",
+    tags: ["prestige", "urban", "activist"],
+    praised: "Academics, prestige, Bay Area career access, and a famously engaged student body.",
+    criticized: "Competitive grading, crowded intro classes, and expensive, scarce housing come up constantly.",
+    niche: "https://www.niche.com/colleges/university-of-california---berkeley/",
+    reddit: "https://www.reddit.com/r/berkeley/",
+    studentLife: "https://lead.berkeley.edu/",
   },
   ucsd: {
     summary: "Brilliant & beach-adjacent — socially awkward stereotype (half joke)",
@@ -2116,6 +2196,11 @@ const BUSINESS_ACCESS = {
     summary: "Merage is selective; strong frosh profile helps",
     note: "Paul Merage undergraduate business is one of the stronger direct UC business brands on this list. Admission to the major/campus pairing is competitive relative to Merced/Riverside.",
   },
+  berkeley: {
+    level: "hard",
+    summary: "Haas admits freshmen directly — all-or-nothing",
+    note: "Haas's Spieker Program takes freshmen directly, but a Haas denial means no Berkeley admission at all. The safer route is L&S (History or Political Science), then the competitive two-year Haas application as a sophomore.",
+  },
   ucsd: {
     level: "moderate",
     summary: "No classic B-school — Business Economics path",
@@ -2231,6 +2316,7 @@ const CAMPUS_COORDS = {
   ucmerced: { lat: 37.366, lng: -120.424 },
   ucr: { lat: 33.9737, lng: -117.3281 },
   uci: { lat: 33.6405, lng: -117.8443 },
+  berkeley: { lat: 37.8719, lng: -122.2585 },
   ucsd: { lat: 32.8801, lng: -117.234 },
   ucsb: { lat: 34.414, lng: -119.8489 },
   scu: { lat: 37.3496, lng: -121.939 },
@@ -4459,7 +4545,7 @@ export default function CollegeFinder() {
 
       <div className="hero">
         <p className="hero-eyebrow">California shortlist — business + history / poli sci minor</p>
-        <h1>25 schools, scored against his transcript</h1>
+        <h1>26 schools, scored against his transcript</h1>
         <p>
           Each system reads his transcript differently: a <strong>3.80 UC GPA</strong> (3.60
           unweighted), a <strong>3.80 CSU GPA</strong>, and a{" "}
@@ -4472,10 +4558,9 @@ export default function CollegeFinder() {
       </div>
 
       <div className="scope-note">
-        <strong>What's out, and why:</strong> UC Berkeley and UCLA are both out — overall admit GPAs
-        at Berkeley run well above this profile (avg weighted ~4.5) and Haas adds its own tougher
-        internal admit on top of that; UCLA averages ~3.93 unweighted with an ~8.6% acceptance rate.
-        Every other UC is included. Each school is badged <strong>likely</strong>,{" "}
+        <strong>What's out, and why:</strong> UCLA is out. It averages ~3.93 unweighted with an
+        ~8.6% acceptance rate. UC Berkeley is in as his long-shot dream school, badged reach (middle
+        50% 3.90–4.00 unweighted, ~11% admitted). Every other UC is included. Each school is badged <strong>likely</strong>,{" "}
         <strong>target</strong>, or <strong>reach</strong> by comparing the GPA that school
         actually calculates from his transcript with its published admit range. UW Seattle is the one
         out-of-state school — California residents pay nonresident tuition. Tap the stars on any
